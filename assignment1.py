@@ -12,9 +12,9 @@ with con:
 
 
     ######## CREATING THE TABLES   ###########
-    command = """DROP TABLE MagTable"""
+    command = """DROP TABLE IF EXISTS dbo.MagTable"""
     cur.execute(command)
-    command = """DROP TABLE PhysTable"""
+    command = """DROP TABLE IF EXISTS dbo.PhysTable"""
     cur.execute(command)
     command = """CREATE TABLE IF NOT EXISTS {0} (Name varchar(10),
     Ra STRING, Dec STRING, B FLOAT, R FLOAT)""".format('MagTable')
@@ -59,13 +59,13 @@ with con:
     command_a =""" 
     SELECT Ra,Dec FROM MagTable WHERE B > 16
     """
-    # command(command_a)
+    command(command_a)
 
     #command b is not well defined since not all stars are in both tables..
     command_b = """
     SELECT B, R, Teff, FeH FROM MagTable M, PhysTable P WHERE M.Name = P.Name
     """
-    # command(command_b)
+    command(command_b)
 
     command_c = """
     SELECT B, R, Teff, FeH FROM MagTable M, PhysTable P WHERE M.Name = P.Name AND FeH > 0
